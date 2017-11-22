@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Express</title>
+<link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+<div class="page">
+
+	<h1><a href="" class="logo"><img src="static/images/01.jpeg"></a></h1>
+
+	<h3>express</h3>
+	<ul>
+		<li v-for="item in list">{{ item.text }}</li>
+	</ul>
+
+</div>
+<script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.5.3/vue.min.js"></script>
+<script src="static/js/init.js"></script>
+<script>
+
+new Vue({
+	el : '.page',
+	data : {
+		list:[]
+	},
+	methods:{
+
+	},
+	mounted(){
+		var _self = this;
+		$.ajax({
+			url:'/api/country/list',
+			type:'POST',
+			success(data){
+				if ( data.code == 0 ) {
+					_self.list = data.list
+				}
+			}
+		})
+
+	}
+})
+	
+</script>
+</body>
+</html>
