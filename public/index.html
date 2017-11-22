@@ -7,12 +7,12 @@
 </head>
 <body>
 <div class="page">
-
 	<h1><a href="" class="logo"><img src="static/images/01.jpeg"></a></h1>
-
 	<h3>express</h3>
+
+
 	<ul>
-		<li v-for="item in list">{{ item.text }}</li>
+		<li v-for="item in list">{{ item.name }}</li>
 	</ul>
 
 </div>
@@ -32,7 +32,7 @@ new Vue({
 	mounted(){
 		var _self = this;
 		$.ajax({
-			url:'/api/country/list',
+			url:'/api/cars/list',
 			type:'POST',
 			success(data){
 				if ( data.code == 0 ) {

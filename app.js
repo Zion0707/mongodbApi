@@ -2,6 +2,15 @@ var express = require('express')
 var app = express()
 var path = require('path')
 var country = require('./api/country.js')
+var cars = require('./api/cars.js')
+
+//配置项
+const config = {
+	// localhost:'192.168.199.127'
+	localhost : 'localhost',
+	port : process.env.PORT || 3000
+}
+
 
 //实现POST请求
 // 引入json解析中间件
@@ -21,8 +30,12 @@ app.use(function(req, res, next) {
 app.use(express.static(path.join(__dirname, 'public')))
 //接口地址访问
 app.use('/api/country',country)
+app.use('/api/cars',cars)
 
 
 
 //端口
-app.listen(3000)
+app.listen(config.port)
+
+
+

@@ -5,8 +5,11 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"node-dev app.js"
+    "start": "node-dev app.js"
   },
   "author": "Zion",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^2.2.33"
+  }
 }

@@ -1,3 +1,4 @@
+//静态数据
 var express = require('express');
 var router = express.Router();
 
@@ -13,14 +14,14 @@ router.post('/', function(req, res, next) {
 //接口地址: /api/list
 router.post('/list', function(req, res, next) {
 	var data = {
-			"code":0,
-			"api":"list",
-  			"list":[
-  				{"text":"中国"},
-  				{"text":"加拿大"},
-  				{"text":"澳大利亚"},
-  				{"text":"智利"}
-  			]};
+    	"code":0,
+    	"msg":"success",
+		"list":[
+			{"name":"中国"},
+			{"name":"加拿大"},
+			{"name":"澳大利亚"},
+			{"name":"智利"}
+		]};
   	res.send(data);
 });
 module.exports = router;
