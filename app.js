@@ -1,15 +1,10 @@
 var express = require('express')
 var app = express()
 var path = require('path')
+var list = require('./api/list.js')
 var country = require('./api/country.js')
-var cars = require('./api/cars.js')
-
-//配置项
-const config = {
-	// localhost:'192.168.199.127'
-	localhost : 'localhost',
-	port : process.env.PORT || 3000
-}
+var addCar = require('./api/addCar.js')
+var delCar = require('./api/delCar.js')
 
 
 //实现POST请求
@@ -25,17 +20,12 @@ app.use(function(req, res, next) {
   next();
 });
 
-
-//静态资源访问
 app.use(express.static(path.join(__dirname, 'public')))
-//接口地址访问
-app.use('/api/country',country)
-app.use('/api/cars',cars)
-
-
-
-//端口
-app.listen(config.port)
+app.use('/api/cars',list)
+app.use('/api/cars',country)
+app.use('/api/cars',addCar)
+app.use('/api/cars',delCar)
+app.listen(3000)
 
 
 

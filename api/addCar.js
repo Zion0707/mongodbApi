@@ -1,6 +1,6 @@
-//动态数据
-var express = require('express');
-var router = express.Router();
+var express = require('express')
+var router = express.Router()
+
 //配置项
 const config = {
 	// localhost:'192.168.199.127'
@@ -12,18 +12,16 @@ var mongo = require('mongodb')
 var server = new mongo.Server(config.localhost,27017,{auto_reconnect:true})
 var db = new mongo.Db('cars',server,{safe:true})
 
-//国家列表
-router.get('/list',function(req,res,next){
-	//连接数据库，连接 country 表
+router.post('/addCar',function(req,res,next){
+	//连接数据库，连接 cars 表
 	db.open(function(err,db){
-		db.collection('country',function(err,collection){
-			collection.find({}).toArray(function(err,docs){
+		db.collection('cars',function(err,collection){
+			collection.insert( req.body ,function(err, docs){
 				//塞进接口中
 				var json = {
 					code : 0,
-					api:'country',
-					msg : 'success',
-					list : docs
+					api : 'addCar',
+					msg : 'success'
 				}
 				res.send(json)
 				db.close()
@@ -34,6 +32,3 @@ router.get('/list',function(req,res,next){
 })
 
 module.exports = router;
-
-
-

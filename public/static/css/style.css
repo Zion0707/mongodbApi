@@ -3,3 +3,13 @@
 	height:40px;
 	display: block;
 }
+.clearfix:after,
+.row:after,
+.fl:after,
+.fr:after {
+    clear:both;
+    content:'\0020';
+    display:block;
+    height:0;    
+}
+.row{width:1000px;margin:0 auto;}

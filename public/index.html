@@ -12,8 +12,18 @@
 
 
 	<ul>
-		<li v-for="item in list">{{ item.name }}</li>
+		<li v-for="item in type">
+			<span>{{ item.name }}</span>
+			<a href="javascript:;" @click="delCar(item.name)">删除</a>
+		</li>
 	</ul>
+
+	
+	<div class="clearfix">
+		<input type="text" v-model.trim="name" @keyup.enter="addCar">
+		<button @click="addCar">添加汽车</button>
+	</div>
+
 
 </div>
 <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
@@ -24,23 +34,36 @@
 new Vue({
 	el : '.page',
 	data : {
-		list:[]
+		type:[],
+		list:[],
+		name:''
 	},
 	methods:{
-
+		addCar:function(){
+			var _self = this;
+			if ( this.name ) {
+				$.post('/api/cars/addCar',{name:this.name},function(data){
+					_self.getList()
+				})
+			}
+		},
+		delCar:function(val){
+			var _self = this;
+			$.post('/api/cars/delCar',{name:val},function(data){
+				_self.getList()
+			})
+		},
+		getList:function(){
+			var _self = this;
+			$.post('/api/cars/list',function(data){
+				if ( data.code == 0 ) {
+					_self.type = data.list
+				}	
+			})
+		}
 	},
 	mounted(){
-		var _self = this;
-		$.ajax({
-			url:'/api/cars/list',
-			type:'POST',
-			success(data){
-				if ( data.code == 0 ) {
-					_self.list = data.list
-				}
-			}
-		})
-
+		this.getList()
 	}
 })
 	
