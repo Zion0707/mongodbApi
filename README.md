@@ -22,6 +22,7 @@ $ mongo <br>
 
 ###### 文件说明
 app.js 主要的入口  <br>
+config.js 配置文件（端口等..）   <br>
 public 静态资源  <br>
 api 文件夹存放 接口逻辑和数据  <br>
 
