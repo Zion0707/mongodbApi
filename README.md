@@ -9,11 +9,15 @@
 $ mongod --config /usr/local/etc/mongod.conf
 $ mongo <br>
 
+
 ###### 数据库
 1.数据库名为 cars 表名也为cars <br>
 2.cars表数据结构
+![](https://github.com/Zion0707/nodeApi/blob/master/screenshots/cars_table.png)
 
 
+###### 界面呈现
+![](https://github.com/Zion0707/nodeApi/blob/master/screenshots/view.png)
 
 
 ###### 文件说明
