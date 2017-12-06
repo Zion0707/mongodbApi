@@ -1,3 +1,5 @@
+//GET方式
+
 //动态数据
 var express = require('express');
 var router = express.Router();

@@ -10,17 +10,28 @@
 	<h1><a href="" class="logo"><img src="static/images/01.jpeg"></a></h1>
 	<h3>express</h3>
 
+	<!-- 查 -->
+	<div class="clearfix">
+		<input type="text" v-model.trim="search" @keyup.enter="searchCar" placeholder="请搜索你想要的汽车">
+		<button @click="searchCar">搜索</button>
+	</div>
 
 	<ul>
-		<li v-for="item in type">
-			<span>{{ item.name }}</span>
+		<li v-for="(item, index) in list">
+			<!-- 删 -->
+			<span :class="'text'+index">{{ item.name }}</span>
 			<a href="javascript:;" @click="delCar(item.name)">删除</a>
+
+
+			<!-- 改 -->
+			<input type="text" :value="item.name" :class="'update'+index" @keyup.enter="updateCar(item.name,index)" placeholder="修改汽车名称">
+			<a href="javascript:;" @click="updateCar(item.name,index)">修改</a>
 		</li>
 	</ul>
 
-	
+	<!-- 增 -->
 	<div class="clearfix">
-		<input type="text" v-model.trim="name" @keyup.enter="addCar">
+		<input type="text" v-model.trim="name" @keyup.enter="addCar" placeholder="请添加汽车">
 		<button @click="addCar">添加汽车</button>
 	</div>
 
@@ -34,32 +45,58 @@
 new Vue({
 	el : '.page',
 	data : {
-		type:[],
 		list:[],
-		name:''
+		name:'',
+		search:''
 	},
 	methods:{
+		//查列表
+		getList:function(){
+			var _self = this;
+			$.post('/api/cars/list',function(data){
+				if ( data.code == 0 ) {
+					_self.list = data.list
+				}	
+			})
+		},
+		//增
 		addCar:function(){
 			var _self = this;
 			if ( this.name ) {
 				$.post('/api/cars/addCar',{name:this.name},function(data){
 					_self.getList()
+					_self.name = '';
 				})
 			}
 		},
+		//删
 		delCar:function(val){
 			var _self = this;
 			$.post('/api/cars/delCar',{name:val},function(data){
 				_self.getList()
 			})
 		},
-		getList:function(){
+		//改
+		updateCar:function(oldVal, index){
 			var _self = this;
-			$.post('/api/cars/list',function(data){
-				if ( data.code == 0 ) {
-					_self.type = data.list
-				}	
+			var newVal = $('.update'+index).val();
+
+			$.post('/api/cars/updateCar',{
+				oldVal : oldVal,
+				newVal : newVal
+			},function(data){
+				_self.getList()
 			})
+		},
+		//查
+		searchCar:function(){
+			var _self = this;
+			if ( this.search ) {
+				$.post('/api/cars/searchCar',{name:this.search},function(data){
+					// _self.search = '';
+					_self.list = data.list;
+				})
+			}
 		}
 	},
 	mounted(){
