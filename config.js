@@ -1,4 +1,5 @@
 module.exports = {
-    'secret':'zp,zp',    
-    'database':'mongodb://127.0.0.1'
+    // localhost:'192.168.199.127'
+	localhost : 'localhost',
+	port : process.env.PORT || 3000
 }

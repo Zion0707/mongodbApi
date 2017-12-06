@@ -3,12 +3,8 @@
 //动态数据
 var express = require('express');
 var router = express.Router();
-//配置项
-const config = {
-	// localhost:'192.168.199.127'
-	localhost : 'localhost',
-	port : process.env.PORT || 3000
-}
+var config = require('../config.js');
+
 //链接数据库
 var mongo = require('mongodb')
 var server = new mongo.Server(config.localhost,27017,{auto_reconnect:true})
