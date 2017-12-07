@@ -10,7 +10,7 @@ var db = new mongo.Db('cars',server,{safe:true})
 
 router.post('/searchCar',function(req,res,next){
 	db.open(function(err,db){
-		db.collection('cars',function(err,collection){
+		db.collection('list',function(err,collection){
 			collection.find(req.body).toArray(function(err,docs){
 				var json = {
 					code:0,
