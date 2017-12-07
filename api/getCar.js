@@ -15,14 +15,18 @@ router.get('/list',function(req,res,next){
 	db.open(function(err,db){
 		db.collection('list',function(err,collection){
 			collection.find({}).toArray(function(err,docs){
-				//塞进接口中
-				var json = {
-					code : 0,
-					api:'list',
-					msg : 'success',
-					list : docs
+				if ( err ) {
+					throw err;
+				}else{
+					//塞进接口中
+					var json = {
+						code : 0,
+						api:'list',
+						msg : 'success',
+						list : docs
+					}
+					res.send(json)
 				}
-				res.send(json)
 				db.close()
 			})
 		})

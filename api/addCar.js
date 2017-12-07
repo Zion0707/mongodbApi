@@ -13,13 +13,17 @@ router.post('/addCar',function(req,res,next){
 	db.open(function(err,db){
 		db.collection('list',function(err,collection){
 			collection.insert( req.body ,function(err, docs){
-				//塞进接口中
-				var json = {
-					code : 0,
-					api : 'addCar',
-					msg : 'success'
+				if ( err ) {
+					throw err;
+				}else{
+					//塞进接口中
+					var json = {
+						code : 0,
+						api : 'addCar',
+						msg : 'success'
+					}
+					res.send(json)
 				}
-				res.send(json)
 				db.close()
 			})
 		})

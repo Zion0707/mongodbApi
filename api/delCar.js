@@ -12,13 +12,17 @@ router.post('/delCar',function(req,res,next){
 	db.open(function(err,db){
 		db.collection('list',function(err,collection){
 			collection.remove(req.body,function(err, docs){
-				//塞进接口中
-				var json = {
-					code : 0,
-					api : 'delCar',
-					msg : 'success'
+				if ( err ) {
+					throw err;
+				}else{
+					//塞进接口中
+					var json = {
+						code : 0,
+						api : 'delCar',
+						msg : 'success'
+					}
+					res.send(json)
 				}
-				res.send(json)
 				db.close()
 			})
 		})

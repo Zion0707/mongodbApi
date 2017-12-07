@@ -12,13 +12,17 @@ router.post('/searchCar',function(req,res,next){
 	db.open(function(err,db){
 		db.collection('list',function(err,collection){
 			collection.find(req.body).toArray(function(err,docs){
-				var json = {
-					code:0,
-					api:'searchCar',
-					msg:'success',
-					list: docs
+				if ( err ) {
+					throw err;
+				}else{
+					var json = {
+						code:0,
+						api:'searchCar',
+						msg:'success',
+						list: docs
+					}
+					res.send(json)
 				}
-				res.send(json)
 				db.close()
 			})
 		})
